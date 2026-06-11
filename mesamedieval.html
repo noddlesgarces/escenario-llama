@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lámpara Medieval - Canvas API</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { background: #06030a; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const W = canvas.width;
+const H = canvas.height;
+
+// para que todo escale bien sin importar el tamaño de pantalla
+const sx = W / 680;
+const sy = H / 520;
+function x(v) { return v * sx; }
+function y(v) { return v * sy; }
+
+ctx.fillStyle = '#06030a';
+ctx.fillRect(0, 0, W, H);
+
+// el gradiente simula el cono de luz que sale hacia la izquierda
+const cone = ctx.createRadialGradient(x(393), y(240), 0, x(200), y(240), x(400));
+cone.addColorStop(0, 'rgba(255, 180, 50, 0.18)');
+cone.addColorStop(0.5, 'rgba(255, 120, 0, 0.07)');
+cone.addColorStop(1, 'rgba(255, 80, 0, 0)');
+ctx.fillStyle = cone;
+ctx.beginPath();
+ctx.moveTo(x(393), y(210));
+ctx.lineTo(x(60), y(110));
+ctx.lineTo(0, y(160));
+ctx.lineTo(0, y(340));
+ctx.lineTo(x(60), y(380));
+ctx.lineTo(x(393), y(270));
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = '#120a04';
+ctx.fillRect(0, 0, W, y(340));
+
+// separación entre tablas de la pared
+ctx.strokeStyle = '#1e1008';
+ctx.lineWidth = 3;
+[60, 130, 200, 270].forEach(yv => {
+    ctx.beginPath();
+    ctx.moveTo(0, y(yv));
+    ctx.lineTo(W, y(yv));
+    ctx.stroke();
+});
+
+ctx.strokeStyle = '#1a0d04';
+ctx.lineWidth = 1;
+ctx.globalAlpha = 0.5;
+ctx.beginPath(); ctx.moveTo(0, y(40)); ctx.lineTo(x(300), y(38)); ctx.stroke();
+ctx.beginPath(); ctx.moveTo(x(50), y(95)); ctx.lineTo(W, y(97)); ctx.stroke();
+ctx.beginPath(); ctx.moveTo(0, y(170)); ctx.lineTo(x(400), y(172)); ctx.stroke();
+ctx.globalAlpha = 1;
+
+// la lámpara ilumina la pared izquierda, esto lo simula
+const wallGlow = ctx.createRadialGradient(x(120), y(210), 0, x(120), y(210), x(220));
+wallGlow.addColorStop(0, 'rgba(255, 200, 60, 0.1)');
+wallGlow.addColorStop(1, 'rgba(255, 100, 0, 0)');
+ctx.fillStyle = wallGlow;
+ctx.fillRect(0, y(80), x(320), y(220));
+
+ctx.fillStyle = '#4a2508';
+ctx.fillRect(x(90), y(320), x(500), y(22));
+
+ctx.strokeStyle = '#2a1505';
+ctx.lineWidth = 0.7;
+ctx.globalAlpha = 0.5;
+[325, 330, 336, 338].forEach(yv => {
+    ctx.beginPath();
+    ctx.moveTo(x(95), y(yv));
+    ctx.lineTo(x(580), y(yv));
+    ctx.stroke();
+});
+ctx.globalAlpha = 1;
+
+ctx.strokeStyle = '#2d1503';
+ctx.lineWidth = 1.5;
+ctx.globalAlpha = 0.7;
+ctx.beginPath(); ctx.moveTo(x(90), y(331)); ctx.lineTo(x(590), y(331)); ctx.stroke();
+ctx.globalAlpha = 1;
+
+ctx.fillStyle = '#3a1c06';
+ctx.fillRect(x(90), y(342), x(500), y(10));
+
+// sombra debajo del tablón
+ctx.fillStyle = 'rgba(26, 10, 2, 0.5)';
+ctx.fillRect(x(90), y(342), x(500), y(4));
+
+function pata(px) {
+    ctx.fillStyle = '#3d1e07';
+    ctx.fillRect(x(px), y(352), x(28), y(150));
+    ctx.strokeStyle = '#2a1505';
+    ctx.lineWidth = 0.7;
+    ctx.globalAlpha = 0.5;
+    [7, 14, 22].forEach(dx => {
+        ctx.beginPath();
+        ctx.moveTo(x(px + dx), y(355));
+        ctx.lineTo(x(px + dx), y(498));
+        ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#321904';
+    ctx.fillRect(x(px - 3), y(440), x(34), y(10));
+}
+pata(115);
+pata(537);
+
+ctx.fillStyle = '#361b06';
+ctx.fillRect(x(143), y(430), x(394), y(14));
+
+ctx.fillStyle = '#1e0e04';
+ctx.fillRect(0, y(490), W, y(30));
+
+ctx.fillStyle = 'rgba(0,0,0,0.5)';
+ctx.beginPath();
+ctx.ellipse(x(129), y(498), x(22), y(5), 0, 0, Math.PI * 2);
+ctx.fill();
+ctx.fillStyle = 'rgba(0,0,0,0.4)';
+ctx.beginPath();
+ctx.ellipse(x(551), y(498), x(22), y(5), 0, 0, Math.PI * 2);
+ctx.fill();
+
+// sombra que proyecta la lámpara sobre la mesa
+ctx.fillStyle = 'rgba(26, 14, 4, 0.5)';
+ctx.beginPath();
+ctx.ellipse(x(393), y(318), x(38), y(7), 0, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = '#5c3a10';
+ctx.beginPath();
+ctx.ellipse(x(393), y(308), x(36), y(10), 0, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = '#6b4214';
+ctx.beginPath();
+ctx.roundRect(x(357), y(270), x(72), y(40), 6);
+ctx.fill();
+
+ctx.fillStyle = '#7a4c18';
+ctx.beginPath();
+ctx.ellipse(x(393), y(270), x(36), y(10), 0, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.strokeStyle = '#4a2c08';
+ctx.lineWidth = 1;
+ctx.globalAlpha = 0.5;
+[362, 372, 393, 414, 424].forEach(xv => {
+    ctx.beginPath();
+    ctx.moveTo(x(xv), y(275));
+    ctx.lineTo(x(xv), y(308));
+    ctx.stroke();
+});
+ctx.globalAlpha = 1;
+
+ctx.strokeStyle = '#8a5820';
+ctx.lineWidth = 2.5;
+ctx.beginPath();
+ctx.ellipse(x(393), y(270), x(36), y(10), 0, 0, Math.PI * 2);
+ctx.stroke();
+
+ctx.fillStyle = '#5a380e';
+ctx.beginPath();
+ctx.roundRect(x(385), y(248), x(16), y(24), 3);
+ctx.fill();
+
+// halo en la base donde sale la mecha
+ctx.fillStyle = 'rgba(255, 200, 68, 0.35)';
+ctx.beginPath();
+ctx.ellipse(x(393), y(235), x(12), y(5), 0, 0, Math.PI * 2);
+ctx.fill();
+
+// capa exterior de la llama, más ancha y amarilla
+ctx.fillStyle = '#ffdd55';
+ctx.beginPath();
+ctx.moveTo(x(388), y(235));
+ctx.bezierCurveTo(x(384), y(222), x(390), y(210), x(393), y(195));
+ctx.bezierCurveTo(x(396), y(210), x(402), y(222), x(398), y(235));
+ctx.closePath();
+ctx.fill();
+
+// núcleo más brillante encima
+ctx.fillStyle = '#fff4aa';
+ctx.beginPath();
+ctx.moveTo(x(390), y(233));
+ctx.bezierCurveTo(x(387), y(223), x(391), y(213), x(393), y(202));
+ctx.bezierCurveTo(x(395), y(213), x(399), y(223), x(396), y(233));
+ctx.closePath();
+ctx.fill();
+
+// punta casi blanca
+ctx.fillStyle = 'rgba(255,255,255,0.8)';
+ctx.beginPath();
+ctx.moveTo(x(391), y(210));
+ctx.bezierCurveTo(x(393), y(198), x(393), y(195), x(393), y(195));
+ctx.bezierCurveTo(x(393), y(198), x(395), y(210), x(395), y(210));
+ctx.closePath();
+ctx.fill();
+
+const glow = ctx.createRadialGradient(x(393), y(225), 0, x(393), y(225), x(120));
+glow.addColorStop(0, 'rgba(255, 232, 154, 0.95)');
+glow.addColorStop(0.3, 'rgba(255, 184, 48, 0.3)');
+glow.addColorStop(1, 'rgba(255, 120, 0, 0)');
+ctx.fillStyle = glow;
+ctx.fillRect(x(273), y(155), x(240), x(200));
+
+// el reflejo de la luz sobre la mesa
+const tableGlow = ctx.createRadialGradient(x(300), y(322), 0, x(300), y(322), x(130));
+tableGlow.addColorStop(0, 'rgba(255, 170, 34, 0.12)');
+tableGlow.addColorStop(1, 'rgba(255, 100, 0, 0)');
+ctx.fillStyle = tableGlow;
+ctx.beginPath();
+ctx.ellipse(x(300), y(323), x(120), y(8), 0, 0, Math.PI * 2);
+ctx.fill();
+</script>
+</body>
+</html>
