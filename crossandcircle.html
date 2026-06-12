@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+            font-family: sans-serif;
+        }
+        body {
+            background-color: black;
+            overflow: hidden;
+        }
+        #canvas {
+            display: block;
+ /*         width: 100%;
+            height: 100%;*/
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+
+    <script>
+        const colorRed = 'rgba(255, 26, 104, 1)';
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 10;
+        ctx.moveTo(450, 300); // PUNTO DE PARTIDA
+        ctx.lineTo(450, 150);
+        ctx.lineTo(450, 450);
+        ctx.lineTo(450, 300);
+        ctx.lineTo(600, 300);
+        ctx.lineTo(450, 300);
+        ctx.lineTo(300, 300);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 10;
+        ctx.moveTo(450, 130);
+        ctx.lineTo(450, 140);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 10;
+        ctx.moveTo(610, 300);
+        ctx.lineTo(620, 300);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 10;
+        ctx.moveTo(450, 460);
+        ctx.lineTo(450, 470);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 10;
+        ctx.moveTo(280, 300);
+        ctx.lineTo(290, 300);
+        ctx.stroke();
+
+        ctx.font = 'bold 20px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText('270', 450, 130); // TOP
+        ctx.fillText('0 o 360', 620, 300); // RIGHT
+        ctx.fillText('90', 450, 470); // BOTTOM
+        ctx.fillText('180', 290, 300); // LEFT
+
+
+
+
+        // arc(x, y, radius, angleStart, angleEnd, counterClockWise)
+        const radius = 50;
+        const radius2 = 80;
+        const radius3 = 110;
+        const radius4 = 140; 
+        const angle = Math.PI / 180;
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 10;
+        // ctx.moveTo(450, 300); // radius
+        ctx.arc(450, 300, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 10;
+        // ctx.moveTo(450, 300); // radius
+        ctx.arc(450, 300, radius2, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 10;
+        // ctx.moveTo(450, 300); // radius
+        ctx.arc(450, 300, radius3, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 10;
+        // ctx.moveTo(450, 300); // radius
+        ctx.arc(450, 300, radius4, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 10;
+        // ctx.moveTo(450, 300); // radius
+        ctx.arc(450, 300, radius4 + 30, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+
+    </script>
+
+
+
+
+</body>
+</html>

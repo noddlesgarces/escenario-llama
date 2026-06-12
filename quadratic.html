@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+            font-family: sans-serif;
+        }
+        body {
+            background-color: black;
+            overflow: hidden;
+        }
+        #canvas {
+            display: block;
+ /*         width: 100%;
+            height: 100%;*/
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const colorRed = 'rgba(255, 26, 104, 1)'
+        const colorBlue = 'rgba(54, 162, 235, 1)'
+        const colorYellow = 'rgba(255, 206, 86, 1)'
+        const colorGreen = 'rgba(75, 192, 192, 1)'
+        const colorPurple = 'rgba(153, 102, 255, 1)'
+
+        const canvas = document.getElementById('canvas');
+        const ctx =  canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const radius = 5;
+        const angle = Math.PI / 180;
+
+        // Punto partida = pp
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 3;
+        ctx.arc(300, 400, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+        
+        // Punto final = pf
+        ctx.beginPath();
+        ctx.strokeStyle = colorRed;
+        ctx.lineWidth = 3;
+        ctx.arc(600, 400, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        // Punto control = pc
+        ctx.beginPath();
+        ctx.strokeStyle = colorBlue;
+        ctx.lineWidth = 3;
+        ctx.arc(450, 150, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        // punto medio en punto partida = PMP
+        ctx.beginPath();
+        ctx.strokeStyle = colorPurple;
+        ctx.lineWidth = 3;
+         // y = 400 - 150  = 250/2 = 125 + 150 = 275
+        // x = PC - PP = 150 / 2 + PP = 375
+        ctx.arc(375, 275, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        // punto medio en punto final = PM
+        ctx.beginPath();
+        ctx.strokeStyle = colorPurple;
+        ctx.lineWidth = 3;
+        // y = 400 - 150  = 250/2 = 125 + 150 = 275
+        // x = 600 - 450 = 150 /2= 75 + 450 = 525
+        ctx.arc(525, 275, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        // Peak point en PF
+        ctx.beginPath();
+        ctx.strokeStyle = colorPurple;
+        ctx.lineWidth = 3;
+        ctx.arc(450, 275, radius, angle * 0, angle * 360, false);
+        ctx.stroke();
+
+        // draw line
+        ctx.beginPath();
+        ctx.strokeStyle = 'lightgrey';
+        ctx.lineWidth = 5;
+        ctx.moveTo(300, 400); // PP
+        ctx.lineTo(450, 150); //PC
+        ctx.lineTo(600, 400); //PF
+        ctx.lineTo(525, 275); // PM of PF
+        ctx.lineTo(375, 275);
+        ctx.stroke();
+        // quadraticCurveTo(controlX, controlY, endX, endY)
+
+        ctx.beginPath();
+        ctx.strokeStyle = colorYellow;
+        ctx.lineWidth = 5;
+        ctx.moveTo(300, 400); // (600-300)/2 = 150+300 = 450
+        ctx.quadraticCurveTo(450, 150, 600, 400);
+        ctx.stroke();
+
+        ctx.font = 'bold 10px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText('SP (300, 400)', 300, 400+30);
+        ctx.fillText('EP (600, 400)', 600, 400+30);
+        ctx.fillText('CP (450, 400)', 450, 150-30);
+        ctx.fillText('MP on SP (375, 275)', 375 - 120, 275);
+        ctx.fillText('MP on EP(525, 275)', 525 + 20, 275);
+        ctx.fillText('PEAK', 450-15, 275-20);
+
+    </script>   
+</body>
+</html>
