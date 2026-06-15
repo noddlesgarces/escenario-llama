@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkerboard 3D Lift</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { background: black; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const SIZE = 100;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const cols = Math.ceil(canvas.width / SIZE) + 1;
+    const rows = Math.ceil(canvas.height / SIZE) + 1;
+
+    const cells = [];
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        if ((row + col) % 2 === 0) cells.push({ col, row });
+      }
+    }
+
+    function drawShadow(x, y, lift) {
+      const spread = lift * 0.18;
+      ctx.globalAlpha = lift * 0.35;
+      ctx.fillStyle = '#000';
+      ctx.fillRect(x + spread, y + SIZE * 0.85, SIZE - spread * 2, SIZE * 0.15 + spread);
+    }
+
+    function drawCell(x, y, lift) {
+      const scaleY = 1 + lift * 0.55;
+      const offsetY = -lift * SIZE * 0.55;
+
+      const topLight = Math.round(160 + lift * 90);
+      const sideLight = Math.round(160 - lift * 60);
+
+      ctx.save();
+      // anclar escala desde la base de la celda
+      ctx.translate(x, y + SIZE);
+      ctx.scale(1, scaleY);
+      ctx.translate(0, -SIZE);
+
+      // cara superior
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = `rgb(${topLight},${topLight},${topLight})`;
+      ctx.fillRect(0, offsetY / scaleY, SIZE, SIZE);
+
+      if (lift > 0.05) {
+        // cara lateral izquierda
+        const sideW = lift * 14;
+        ctx.globalAlpha = 0.8;
+        ctx.fillStyle = `rgb(${sideLight},${sideLight},${sideLight})`;
+        ctx.beginPath();
+        ctx.moveTo(0, offsetY / scaleY);
+        ctx.lineTo(-sideW, offsetY / scaleY + sideW * 0.5);
+        ctx.lineTo(-sideW, SIZE + sideW * 0.5);
+        ctx.lineTo(0, SIZE);
+        ctx.closePath();
+        ctx.fill();
+
+        // frente de la ficha
+        const frontH = lift * 20;
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = `rgb(${sideLight - 20},${sideLight - 20},${sideLight - 20})`;
+        ctx.fillRect(0, SIZE - frontH / scaleY, SIZE, frontH / scaleY);
+      }
+
+      ctx.restore();
+    }
+
+    gsap.ticker.add((time) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // sombras primero (pasan por debajo de las celdas)
+      cells.forEach(({ col, row }) => {
+        const lift = Math.max(0, Math.sin(time * 1.1 - (col + row) * 0.4));
+        if (lift > 0.05) drawShadow(col * SIZE, row * SIZE, lift);
+      });
+
+      // celdas encima
+      cells.forEach(({ col, row }) => {
+        const lift = Math.max(0, Math.sin(time * 1.1 - (col + row) * 0.4));
+        drawCell(col * SIZE, row * SIZE, lift);
+      });
+
+      ctx.globalAlpha = 1;
+    });
+  </script>
+</body>
+</html>
