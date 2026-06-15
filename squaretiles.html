@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #canvas {
+            display: block;
+            /*         width: 100%;
+            height: 100%;*/
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const colorRed = 'rgba(255, 26, 104, 1)'
+        const colorBlue = 'rgba(54, 162, 235, 1)'
+        const colorYellow = 'rgba(255, 206, 86, 1)'
+        const colorGreen = 'rgba(75, 192, 192, 1)'
+        const colorPurple = 'rgba(153, 102, 255, 1)'
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.fillStyle = '#ccc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.clearRect(100, 0, 100, 100);
+        ctx.clearRect(300, 0, 100, 100);
+        ctx.clearRect(500, 0, 100, 100);
+        ctx.clearRect(700, 0, 100, 100);
+        ctx.clearRect(900, 0, 100, 100);
+        ctx.clearRect(1100, 0, 100, 100);
+
+        ctx.clearRect(0, 100, 100, 100);
+        ctx.clearRect(0, 300, 100, 100);
+        ctx.clearRect(0, 500, 100, 100);
+        ctx.clearRect(0, 700, 100, 100);
+        ctx.clearRect(0, 900, 100, 100);
+        ctx.clearRect(0, 1100, 100, 100);
+
+        ctx.clearRect(200, 100, 100, 100);
+        ctx.clearRect(400, 100, 100, 100);
+        ctx.clearRect(600, 100, 100, 100);
+        ctx.clearRect(800, 100, 100, 100);
+        ctx.clearRect(1000, 100, 100, 100);
+
+        ctx.clearRect(200, 500, 100, 100);
+        ctx.clearRect(400, 500, 100, 100);
+        ctx.clearRect(600, 500, 100, 100);
+
+        ctx.clearRect(200, 700, 100, 100);
+        ctx.clearRect(400, 700, 100, 100);
+        ctx.clearRect(600, 700, 100, 100);
+
+
+        ctx.clearRect(200, 300, 100, 100);
+        ctx.clearRect(400, 300, 100, 100);
+        ctx.clearRect(600, 300, 100, 100);
+        ctx.clearRect(800, 300, 100, 100);
+        ctx.clearRect(1000, 300, 100, 100);
+
+        ctx.clearRect(100, 200, 100, 100);
+        ctx.clearRect(100, 400, 100, 100);
+        ctx.clearRect(100, 600, 100, 100);
+        ctx.clearRect(100, 800, 100, 100);
+        ctx.clearRect(100, 1000, 100, 100);
+
+        ctx.clearRect(300, 200, 100, 100);
+        ctx.clearRect(300, 400, 100, 100);
+        ctx.clearRect(300, 600, 100, 100);
+        ctx.clearRect(300, 800, 100, 100);
+        ctx.clearRect(300, 1000, 100, 100);
+
+        ctx.clearRect(500, 200, 100, 100);
+        ctx.clearRect(500, 400, 100, 100);
+        ctx.clearRect(500, 600, 100, 100);
+        ctx.clearRect(500, 800, 100, 100);
+        ctx.clearRect(500, 1000, 100, 100);
+
+        ctx.clearRect(700, 200, 100, 100);
+        ctx.clearRect(700, 400, 100, 100);
+        ctx.clearRect(700, 600, 100, 100);
+        ctx.clearRect(700, 800, 100, 100);
+        ctx.clearRect(700, 1000, 100, 100);
+
+
+
+
+
+
+
+    
+
+    </script>
+</body>
+
+</html>
