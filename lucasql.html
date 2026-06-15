@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #canvas {
+            display: block;
+            /*         width: 100%;
+            height: 100%;*/
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const colorRed = 'rgba(255, 26, 104, 1)'
+        const colorBlue = 'rgba(54, 162, 235, 1)'
+        const colorYellow = 'rgba(255, 206, 86, 1)'
+        const colorGreen = 'rgba(75, 192, 192, 1)'
+        const colorPurple = 'rgba(153, 102, 255, 1)'
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const radius = 200;
+        const radius2 = 90;
+        const angle = Math.PI / 180;
+
+        ctx.beginPath();
+        ctx.fillStyle = colorYellow;
+        ctx.lineWidth = 3;
+        ctx.arc(350, 300, radius, angle * 30, angle * 330, false);
+
+        ctx.lineTo(350, 300);
+        ctx.lineTo(438, 350);
+
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = colorYellow;
+        ctx.lineWidth = 3;
+        ctx.arc(500, 450, radius2, angle * 0, angle * 360, false);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = colorYellow;
+        ctx.lineWidth = 3;
+        ctx.arc(470, 400, radius2, angle * 0, angle * 360, false);
+        ctx.fill();
+
+
+
+
+    </script>
+</body>
+
+</html>
